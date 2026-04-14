@@ -1,0 +1,803 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Own a CDL Alpha Franchise | CDL Alpha Driving School</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow:wght@400;500;600;700&family=Barlow+Condensed:wght@600;700&display=swap" rel="stylesheet">
+<style>
+:root{--gold:#F0A500;--gold-light:#FFD166;--black:#080808;--dark:#111;--dark2:#161616;--dark3:#1e1e1e;--white:#F5F0E8;--gray:#888;--success:#27ae60}
+*{margin:0;padding:0;box-sizing:border-box}html{scroll-behavior:smooth}
+body{background:var(--black);color:var(--white);font-family:'Barlow',sans-serif;overflow-x:hidden}
+
+/* SCROLL PROGRESS */
+#progress-bar{position:fixed;top:0;left:0;height:3px;background:linear-gradient(90deg,var(--gold),var(--gold-light));width:0%;z-index:9999;transition:width 0.1s linear}
+
+/* NAV */
+nav{position:fixed;top:3px;left:0;right:0;z-index:200;display:flex;justify-content:space-between;align-items:center;padding:1rem 3rem;background:rgba(8,8,8,0.94);border-bottom:1px solid rgba(240,165,0,0.15);backdrop-filter:blur(16px);transition:padding 0.3s}
+nav.scrolled{padding:0.65rem 3rem;border-bottom-color:rgba(240,165,0,0.3)}
+.nav-logo{font-family:'Bebas Neue',sans-serif;font-size:1.9rem;color:var(--gold);letter-spacing:2px;cursor:pointer}
+.nav-logo span{color:var(--white)}
+.nav-links{display:flex;gap:2rem;align-items:center}
+.nav-link{color:var(--gray);text-decoration:none;font-size:0.8rem;font-weight:700;letter-spacing:1px;text-transform:uppercase;transition:color 0.2s;position:relative;padding-bottom:2px}
+.nav-link::after{content:'';position:absolute;bottom:0;left:0;width:0;height:2px;background:var(--gold);transition:width 0.25s}
+.nav-link:hover::after,.nav-link.active::after{width:100%}
+.nav-link:hover,.nav-link.active{color:var(--gold)}
+.nav-cta{background:var(--gold);color:var(--black)!important;padding:0.5rem 1.4rem;border-radius:2px;font-weight:700;transition:background 0.2s!important}
+.nav-cta::after{display:none!important}
+.nav-cta:hover{background:var(--gold-light)!important}
+.hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer;padding:4px}
+.hamburger span{width:24px;height:2px;background:var(--white);transition:all 0.3s}
+.hamburger.open span:nth-child(1){transform:rotate(45deg) translate(5px,5px)}
+.hamburger.open span:nth-child(2){opacity:0}
+.hamburger.open span:nth-child(3){transform:rotate(-45deg) translate(5px,-5px)}
+.mobile-menu{display:none;position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(8,8,8,0.98);z-index:190;flex-direction:column;justify-content:center;align-items:center;gap:2.5rem}
+.mobile-menu.open{display:flex}
+.mobile-menu a{font-family:'Bebas Neue',sans-serif;font-size:2.5rem;letter-spacing:3px;color:var(--white);text-decoration:none;transition:color 0.2s}
+.mobile-menu a:hover{color:var(--gold)}
+
+/* HERO */
+.hero{min-height:100vh;display:flex;align-items:center;position:relative;overflow:hidden;padding:8rem 3rem 5rem}
+.hero-bg{position:absolute;inset:0;background:linear-gradient(135deg,#080808 0%,#0f0f00 60%,#1a1200 100%)}
+.hero-grid{position:absolute;inset:0;opacity:0.06;background-image:linear-gradient(var(--gold) 1px,transparent 1px),linear-gradient(90deg,var(--gold) 1px,transparent 1px);background-size:50px 50px;animation:gridShift 20s linear infinite}
+@keyframes gridShift{0%{background-position:0 0}100%{background-position:50px 50px}}
+.hero-glow{position:absolute;top:-20%;right:-10%;width:700px;height:700px;background:radial-gradient(circle,rgba(240,165,0,0.08) 0%,transparent 70%);animation:pulse 4s ease-in-out infinite}
+@keyframes pulse{0%,100%{transform:scale(1);opacity:1}50%{transform:scale(1.05);opacity:0.7}}
+.hero-content{position:relative;z-index:2;max-width:780px}
+.hero-badge{display:inline-flex;align-items:center;gap:0.5rem;background:rgba(240,165,0,0.1);border:1px solid rgba(240,165,0,0.35);color:var(--gold);padding:0.4rem 1.2rem;font-size:0.72rem;font-weight:700;letter-spacing:3px;text-transform:uppercase;border-radius:2px;margin-bottom:1.5rem;animation:fadeUp 0.6s ease both}
+.badge-dot{width:7px;height:7px;border-radius:50%;background:var(--gold);animation:blink 1.5s ease-in-out infinite}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:0.2}}
+.hero h1{font-family:'Bebas Neue',sans-serif;font-size:clamp(3.5rem,8vw,7.5rem);line-height:0.9;letter-spacing:3px;color:var(--white);animation:fadeUp 0.7s 0.1s ease both}
+.hero h1 .gold{color:var(--gold);display:block}
+.hero-sub{margin-top:1.5rem;font-size:1.1rem;color:#aaa;line-height:1.75;max-width:570px;animation:fadeUp 0.7s 0.2s ease both}
+.hero-stats{display:flex;gap:2.5rem;margin-top:2.5rem;animation:fadeUp 0.7s 0.3s ease both;flex-wrap:wrap}
+.hero-stat-num{font-family:'Bebas Neue',sans-serif;font-size:3rem;color:var(--gold);line-height:1}
+.hero-stat-label{font-size:0.72rem;color:var(--gray);text-transform:uppercase;letter-spacing:1px;margin-top:0.2rem}
+.hero-ctas{display:flex;gap:1rem;margin-top:2.5rem;flex-wrap:wrap;animation:fadeUp 0.7s 0.4s ease both}
+.btn-primary{background:var(--gold);color:var(--black);padding:0.95rem 2.5rem;font-family:'Barlow Condensed',sans-serif;font-size:1.05rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;text-decoration:none;border-radius:2px;border:none;cursor:pointer;display:inline-flex;align-items:center;gap:0.5rem;transition:background 0.2s,transform 0.15s,box-shadow 0.2s}
+.btn-primary:hover{background:var(--gold-light);transform:translateY(-2px);box-shadow:0 8px 30px rgba(240,165,0,0.3)}
+.btn-outline{background:transparent;color:var(--white);padding:0.95rem 2.5rem;font-family:'Barlow Condensed',sans-serif;font-size:1.05rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;text-decoration:none;border-radius:2px;border:1px solid rgba(255,255,255,0.2);cursor:pointer;display:inline-flex;align-items:center;gap:0.5rem;transition:border-color 0.2s,color 0.2s,transform 0.15s}
+.btn-outline:hover{border-color:var(--gold);color:var(--gold);transform:translateY(-2px)}
+.hero-scroll{position:absolute;bottom:2.5rem;left:50%;transform:translateX(-50%);display:flex;flex-direction:column;align-items:center;gap:0.5rem;animation:fadeUp 1s 0.8s ease both;cursor:pointer}
+.hero-scroll span{font-size:0.65rem;letter-spacing:3px;text-transform:uppercase;color:var(--gray)}
+.scroll-line{width:1px;height:50px;background:linear-gradient(var(--gold),transparent);animation:scrollAnim 1.5s ease-in-out infinite}
+@keyframes scrollAnim{0%{transform:scaleY(0);transform-origin:top}50%{transform:scaleY(1);transform-origin:top}51%{transform-origin:bottom}100%{transform:scaleY(0);transform-origin:bottom}}
+
+/* REVEAL */
+.reveal{opacity:0;transform:translateY(30px);transition:opacity 0.7s ease,transform 0.7s ease}
+.reveal.visible{opacity:1;transform:translateY(0)}
+.reveal-left{opacity:0;transform:translateX(-30px);transition:opacity 0.7s ease,transform 0.7s ease}
+.reveal-left.visible{opacity:1;transform:translateX(0)}
+.reveal-right{opacity:0;transform:translateX(30px);transition:opacity 0.7s ease,transform 0.7s ease}
+.reveal-right.visible{opacity:1;transform:translateX(0)}
+
+/* SECTIONS */
+section{padding:6rem 3rem}
+.section-label{font-size:0.7rem;font-weight:700;letter-spacing:4px;text-transform:uppercase;color:var(--gold);margin-bottom:0.75rem}
+.section-title{font-family:'Bebas Neue',sans-serif;font-size:clamp(2.5rem,5vw,4rem);letter-spacing:2px;line-height:1;color:var(--white)}
+.section-title span{color:var(--gold)}
+.section-body{color:#999;font-size:1rem;line-height:1.8;max-width:640px;margin-top:1rem}
+.divider{width:60px;height:3px;background:var(--gold);margin:1.5rem 0}
+
+/* MARQUEE TICKER */
+.ticker{background:var(--gold);padding:0.6rem 0;overflow:hidden;position:relative}
+.ticker-track{display:flex;gap:4rem;animation:ticker 20s linear infinite;white-space:nowrap}
+.ticker-track span{font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:0.85rem;letter-spacing:2px;text-transform:uppercase;color:var(--black)}
+.ticker-sep{opacity:0.4}
+@keyframes ticker{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
+
+/* WHY */
+.why{background:var(--dark2)}
+.why-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:1.5rem;margin-top:3.5rem}
+.why-card{background:var(--dark3);border:1px solid rgba(240,165,0,0.08);padding:2rem;border-radius:4px;position:relative;overflow:hidden;transition:border-color 0.3s,transform 0.25s,box-shadow 0.25s;cursor:default}
+.why-card:hover{border-color:rgba(240,165,0,0.45);transform:translateY(-6px);box-shadow:0 12px 40px rgba(0,0,0,0.5)}
+.why-card::before{content:'';position:absolute;top:0;left:0;width:3px;height:0;background:var(--gold);transition:height 0.4s ease}
+.why-card:hover::before{height:100%}
+.why-icon{font-size:2rem;margin-bottom:1rem;transition:transform 0.3s}
+.why-card:hover .why-icon{transform:scale(1.15)}
+.why-title{font-family:'Barlow Condensed',sans-serif;font-size:1.2rem;font-weight:700;letter-spacing:1px;color:var(--white);margin-bottom:0.5rem}
+.why-text{font-size:0.9rem;color:var(--gray);line-height:1.7}
+
+/* ROI CALCULATOR */
+.calculator{background:var(--dark)}
+.calc-inner{display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:start;margin-top:3rem}
+.calc-controls{display:flex;flex-direction:column;gap:2rem}
+.calc-group label{display:flex;justify-content:space-between;align-items:center;font-size:0.78rem;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--gray);margin-bottom:0.75rem}
+.calc-value{color:var(--gold);font-family:'Bebas Neue',sans-serif;font-size:1.4rem}
+input[type=range]{width:100%;-webkit-appearance:none;height:4px;border-radius:2px;background:var(--dark3);outline:none;cursor:pointer}
+input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:18px;height:18px;border-radius:50%;background:var(--gold);cursor:pointer;transition:transform 0.2s}
+input[type=range]::-webkit-slider-thumb:hover{transform:scale(1.3)}
+.calc-results{background:var(--dark3);border:1px solid rgba(240,165,0,0.2);border-radius:4px;padding:2.5rem;position:sticky;top:100px}
+.calc-results h3{font-family:'Bebas Neue',sans-serif;font-size:1.8rem;letter-spacing:2px;color:var(--gold);margin-bottom:1.5rem}
+.result-row{display:flex;justify-content:space-between;align-items:center;padding:0.85rem 0;border-bottom:1px solid rgba(255,255,255,0.06)}
+.result-row:last-child{border-bottom:none}
+.result-label{font-size:0.85rem;color:var(--gray)}
+.result-val{font-family:'Bebas Neue',sans-serif;font-size:1.6rem;color:var(--white)}
+.result-val.highlight{color:var(--gold);font-size:2rem}
+.result-note{font-size:0.72rem;color:#555;margin-top:1rem;line-height:1.6}
+.calc-disclaimer{font-size:0.72rem;color:#444;margin-top:1rem;line-height:1.6}
+
+/* INVESTMENT TIERS */
+.tiers{background:var(--dark2)}
+.tiers-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:1.5rem;margin-top:3.5rem}
+.tier-card{background:var(--dark3);border:1px solid rgba(255,255,255,0.07);padding:2.5rem;border-radius:4px;position:relative;transition:transform 0.25s,box-shadow 0.25s;display:flex;flex-direction:column}
+.tier-card:hover{transform:translateY(-5px);box-shadow:0 16px 50px rgba(0,0,0,0.6)}
+.tier-card.featured{border-color:var(--gold);background:linear-gradient(160deg,#1a1500,#110e00)}
+.tier-badge{position:absolute;top:-13px;left:50%;transform:translateX(-50%);background:var(--gold);color:var(--black);font-size:0.62rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;padding:0.3rem 1.2rem;border-radius:2px;white-space:nowrap}
+.tier-name{font-family:'Barlow Condensed',sans-serif;font-size:1rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--gray)}
+.tier-price{font-family:'Bebas Neue',sans-serif;font-size:3.2rem;color:var(--gold);line-height:1.1;margin:0.4rem 0}
+.tier-royalty{font-size:0.82rem;color:var(--gray);margin-bottom:1.5rem}
+.tier-features{list-style:none;flex:1}
+.tier-features li{font-size:0.88rem;color:#bbb;padding:0.5rem 0;border-bottom:1px solid rgba(255,255,255,0.05);display:flex;align-items:flex-start;gap:0.75rem}
+.tier-features li::before{content:'✓';color:var(--gold);font-weight:700;flex-shrink:0}
+.tier-cta{display:block;text-align:center;margin-top:2rem;width:100%;justify-content:center}
+
+/* PROCESS */
+.process{background:var(--dark)}
+.timeline{display:flex;flex-direction:column;gap:0;margin-top:3rem;position:relative}
+.timeline::before{content:'';position:absolute;left:24px;top:0;bottom:0;width:2px;background:linear-gradient(var(--gold),rgba(240,165,0,0.1))}
+.timeline-item{display:flex;gap:2rem;padding-bottom:3rem;position:relative}
+.timeline-item:last-child{padding-bottom:0}
+.timeline-dot{width:50px;height:50px;border-radius:50%;background:var(--dark3);border:2px solid rgba(240,165,0,0.3);display:flex;align-items:center;justify-content:center;flex-shrink:0;font-family:'Bebas Neue',sans-serif;font-size:1.2rem;color:var(--gold);transition:background 0.3s,border-color 0.3s;position:relative;z-index:1}
+.timeline-item.active .timeline-dot,.timeline-item:hover .timeline-dot{background:var(--gold);color:var(--black);border-color:var(--gold)}
+.timeline-content{padding-top:0.75rem}
+.timeline-title{font-family:'Barlow Condensed',sans-serif;font-size:1.2rem;font-weight:700;letter-spacing:1px;color:var(--white);margin-bottom:0.3rem}
+.timeline-text{font-size:0.9rem;color:var(--gray);line-height:1.7}
+.timeline-time{font-size:0.7rem;color:var(--gold);font-weight:700;letter-spacing:2px;text-transform:uppercase;margin-top:0.5rem}
+
+/* MARKET */
+.market{background:linear-gradient(135deg,#0a0a00,#150f00);border-top:1px solid rgba(240,165,0,0.15);border-bottom:1px solid rgba(240,165,0,0.15)}
+.market-grid{display:grid;grid-template-columns:1fr 1fr;gap:5rem;align-items:center}
+.opp-stats{display:grid;grid-template-columns:1fr 1fr;gap:1.2rem;margin-top:2rem}
+.opp-stat{background:rgba(240,165,0,0.05);border:1px solid rgba(240,165,0,0.12);padding:1.5rem;border-radius:4px;text-align:center;transition:border-color 0.3s,background 0.3s}
+.opp-stat:hover{background:rgba(240,165,0,0.09);border-color:rgba(240,165,0,0.3)}
+.opp-num{font-family:'Bebas Neue',sans-serif;font-size:2.8rem;color:var(--gold);line-height:1}
+.opp-label{font-size:0.75rem;color:var(--gray);text-transform:uppercase;letter-spacing:1px;margin-top:0.3rem}
+
+/* FAQ */
+.faq{background:var(--dark2)}
+.faq-list{max-width:800px;margin:3rem auto 0;display:flex;flex-direction:column;gap:1px}
+.faq-item{background:var(--dark3);border:1px solid rgba(255,255,255,0.06);border-radius:4px;overflow:hidden;transition:border-color 0.3s}
+.faq-item.open{border-color:rgba(240,165,0,0.3)}
+.faq-question{width:100%;background:none;border:none;padding:1.4rem 1.8rem;display:flex;justify-content:space-between;align-items:center;cursor:pointer;text-align:left;color:var(--white);font-family:'Barlow',sans-serif;font-size:1rem;font-weight:600;transition:color 0.2s}
+.faq-question:hover{color:var(--gold)}
+.faq-item.open .faq-question{color:var(--gold)}
+.faq-icon{width:24px;height:24px;border-radius:50%;border:1px solid rgba(240,165,0,0.4);display:flex;align-items:center;justify-content:center;font-size:1rem;color:var(--gold);flex-shrink:0;transition:transform 0.3s;line-height:1}
+.faq-item.open .faq-icon{transform:rotate(45deg);background:var(--gold);color:var(--black)}
+.faq-answer{max-height:0;overflow:hidden;transition:max-height 0.4s ease,padding 0.3s}
+.faq-item.open .faq-answer{max-height:300px}
+.faq-answer p{padding:0 1.8rem 1.5rem;font-size:0.92rem;color:var(--gray);line-height:1.8}
+
+/* FORM */
+.apply{background:var(--dark)}
+.apply-inner{max-width:720px;margin:0 auto}
+.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-top:2.5rem}
+.form-group{display:flex;flex-direction:column;gap:0.4rem;position:relative}
+.form-group.full{grid-column:1/-1}
+label{font-size:0.72rem;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--gray)}
+.required-mark{color:var(--gold)}
+input,select,textarea{background:var(--dark3);border:1px solid rgba(255,255,255,0.1);color:var(--white);padding:0.85rem 1rem;border-radius:2px;font-family:'Barlow',sans-serif;font-size:0.95rem;transition:border-color 0.25s,box-shadow 0.25s;outline:none;width:100%}
+input:focus,select:focus,textarea:focus{border-color:var(--gold);box-shadow:0 0 0 3px rgba(240,165,0,0.08)}
+input.error,select.error,textarea.error{border-color:#c0392b}
+.field-error{font-size:0.72rem;color:#e74c3c;margin-top:0.2rem;display:none}
+.field-error.show{display:block}
+select option{background:var(--dark3)}
+textarea{resize:vertical;min-height:110px}
+.form-progress{display:flex;justify-content:center;gap:0.5rem;margin-bottom:2rem}
+.prog-step{width:32px;height:32px;border-radius:50%;border:2px solid rgba(255,255,255,0.15);display:flex;align-items:center;justify-content:center;font-size:0.78rem;font-weight:700;color:var(--gray);transition:all 0.3s}
+.prog-step.active{border-color:var(--gold);color:var(--gold)}
+.prog-step.done{background:var(--gold);border-color:var(--gold);color:var(--black)}
+.prog-line{width:60px;height:2px;background:rgba(255,255,255,0.1);align-self:center;transition:background 0.3s}
+.prog-line.done{background:var(--gold)}
+.form-step{display:none}
+.form-step.active{display:contents}
+.form-nav{grid-column:1/-1;display:flex;gap:1rem;justify-content:space-between;margin-top:0.5rem;align-items:center}
+.btn-back{background:transparent;color:var(--gray);border:1px solid rgba(255,255,255,0.1);padding:0.85rem 2rem;font-family:'Barlow Condensed',sans-serif;font-size:1rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;border-radius:2px;cursor:pointer;transition:color 0.2s,border-color 0.2s}
+.btn-back:hover{color:var(--white);border-color:rgba(255,255,255,0.3)}
+.form-note{font-size:0.78rem;color:#555;text-align:center;margin-top:1rem}
+.success-screen{display:none;text-align:center;padding:3rem 1rem}
+.success-screen.show{display:block}
+.success-icon{font-size:4rem;margin-bottom:1rem;animation:popIn 0.5s cubic-bezier(.175,.885,.32,1.275) both}
+@keyframes popIn{0%{transform:scale(0)}100%{transform:scale(1)}}
+.success-screen h3{font-family:'Bebas Neue',sans-serif;font-size:3rem;letter-spacing:3px;color:var(--gold);margin-bottom:0.5rem}
+.success-screen p{color:var(--gray);font-size:1rem;line-height:1.8;max-width:480px;margin:0 auto}
+
+/* FOOTER */
+footer{background:var(--black);border-top:1px solid rgba(240,165,0,0.1);padding:2.5rem 3rem}
+.footer-inner{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:1.5rem}
+.footer-logo{font-family:'Bebas Neue',sans-serif;font-size:1.6rem;color:var(--gold);letter-spacing:2px}
+.footer-links{display:flex;gap:2rem}
+.footer-links a{font-size:0.78rem;color:#555;text-decoration:none;text-transform:uppercase;letter-spacing:1px;font-weight:600;transition:color 0.2s}
+.footer-links a:hover{color:var(--gold)}
+.footer-copy{font-size:0.75rem;color:#333;margin-top:1.5rem;text-align:center}
+
+@keyframes fadeUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
+
+@media(max-width:900px){
+  .calc-inner,.market-grid{grid-template-columns:1fr;gap:2.5rem}
+  .calc-results{position:static}
+}
+@media(max-width:768px){
+  nav{padding:1rem 1.5rem}
+  .nav-links{display:none}
+  .hamburger{display:flex}
+  section{padding:4rem 1.5rem}
+  .hero{padding:7rem 1.5rem 4.5rem}
+  .hero-stats{gap:1.5rem}
+  .form-grid{grid-template-columns:1fr}
+  .footer-inner{flex-direction:column;text-align:center}
+  .footer-links{flex-wrap:wrap;justify-content:center}
+  .timeline::before{left:20px}
+  .timeline-dot{width:42px;height:42px;font-size:1rem}
+  .form-progress{gap:0.3rem}
+  .prog-line{width:35px}
+}
+</style>
+</head>
+<body>
+
+<div id="progress-bar"></div>
+
+<!-- MOBILE MENU -->
+<div class="mobile-menu" id="mobileMenu">
+  <a href="#why" onclick="closeMobile()">Why Us</a>
+  <a href="#calculator" onclick="closeMobile()">ROI Calculator</a>
+  <a href="#investment" onclick="closeMobile()">Investment</a>
+  <a href="#process" onclick="closeMobile()">Process</a>
+  <a href="#faq" onclick="closeMobile()">FAQ</a>
+  <a href="#apply" onclick="closeMobile()" style="color:var(--gold)">Apply Now</a>
+</div>
+
+<!-- NAV -->
+<nav id="navbar">
+  <div class="nav-logo" onclick="scrollTo({top:0,behavior:'smooth'})">CDL<span> Alpha</span></div>
+  <div class="nav-links">
+    <a href="#why" class="nav-link">Why Us</a>
+    <a href="#calculator" class="nav-link">ROI Calculator</a>
+    <a href="#investment" class="nav-link">Investment</a>
+    <a href="#process" class="nav-link">Process</a>
+    <a href="#faq" class="nav-link">FAQ</a>
+    <a href="#apply" class="nav-link nav-cta">Apply Now</a>
+  </div>
+  <div class="hamburger" id="hamburger" onclick="toggleMobile()">
+    <span></span><span></span><span></span>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero" id="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-grid"></div>
+  <div class="hero-glow"></div>
+  <div class="hero-content">
+    <div class="hero-badge"><span class="badge-dot"></span>Franchise Opportunity — Now Expanding Nationwide</div>
+    <h1>Own a<span class="gold">CDL School.</span>Change Lives.</h1>
+    <p class="hero-sub">Join the CDL Alpha Driving School franchise network — a proven system for training America's next generation of commercial drivers. Grand opening <strong style="color:var(--gold)">May 23, 2026</strong>.</p>
+    <div class="hero-stats">
+      <div><div class="hero-stat-num counter" data-target="700000" data-prefix="" data-suffix="K+" data-divide="1000">0</div><div class="hero-stat-label">Driver shortage nationwide</div></div>
+      <div><div class="hero-stat-num counter" data-target="80" data-prefix="$" data-suffix="K+" data-divide="1">0</div><div class="hero-stat-label">Average CDL driver salary</div></div>
+      <div><div class="hero-stat-num counter" data-target="4" data-prefix="$" data-suffix="T" data-divide="1">0</div><div class="hero-stat-label">US trucking industry size</div></div>
+    </div>
+    <div class="hero-ctas">
+      <a href="#apply" class="btn-primary">🚀 Apply for a Franchise</a>
+      <a href="#calculator" class="btn-outline">📊 See Your ROI</a>
+    </div>
+  </div>
+  <div class="hero-scroll" onclick="document.getElementById('why').scrollIntoView({behavior:'smooth'})">
+    <div class="scroll-line"></div>
+    <span>Scroll</span>
+  </div>
+</section>
+
+<!-- TICKER -->
+<div class="ticker">
+  <div class="ticker-track" id="ticker">
+    <span>🚛 CDL Alpha Franchise</span><span class="ticker-sep">◆</span>
+    <span>700,000+ Driver Shortage</span><span class="ticker-sep">◆</span>
+    <span>Proven Business Model</span><span class="ticker-sep">◆</span>
+    <span>Grand Opening May 23, 2026</span><span class="ticker-sep">◆</span>
+    <span>Exclusive Territories Available</span><span class="ticker-sep">◆</span>
+    <span>3 Investment Tiers</span><span class="ticker-sep">◆</span>
+    <span>Join the Network</span><span class="ticker-sep">◆</span>
+    <span>🚛 CDL Alpha Franchise</span><span class="ticker-sep">◆</span>
+    <span>700,000+ Driver Shortage</span><span class="ticker-sep">◆</span>
+    <span>Proven Business Model</span><span class="ticker-sep">◆</span>
+    <span>Grand Opening May 23, 2026</span><span class="ticker-sep">◆</span>
+    <span>Exclusive Territories Available</span><span class="ticker-sep">◆</span>
+    <span>3 Investment Tiers</span><span class="ticker-sep">◆</span>
+    <span>Join the Network</span><span class="ticker-sep">◆</span>
+  </div>
+</div>
+
+<!-- WHY -->
+<section class="why" id="why">
+  <div class="section-label reveal">Why CDL Alpha</div>
+  <h2 class="section-title reveal">Built on a <span>Proven System</span></h2>
+  <div class="divider reveal"></div>
+  <p class="section-body reveal">We didn't just build a driving school — we built a business model that works. Here's what you get when you partner with CDL Alpha.</p>
+  <div class="why-grid">
+    <div class="why-card reveal" style="transition-delay:0.05s"><div class="why-icon">📋</div><div class="why-title">Complete Curriculum</div><div class="why-text">Fully developed CDL training program meeting all federal and state standards. You don't build it — you deploy it from day one.</div></div>
+    <div class="why-card reveal" style="transition-delay:0.1s"><div class="why-icon">📣</div><div class="why-title">Done-For-You Marketing</div><div class="why-text">Branded social media templates, ad campaigns, and lead generation tools ready to launch in your local market immediately.</div></div>
+    <div class="why-card reveal" style="transition-delay:0.15s"><div class="why-icon">🤝</div><div class="why-title">Ongoing Support</div><div class="why-text">Quarterly franchise calls, compliance updates, instructor certification standards, and a direct line to headquarters when you need it.</div></div>
+    <div class="why-card reveal" style="transition-delay:0.2s"><div class="why-icon">🗺️</div><div class="why-title">Exclusive Territory</div><div class="why-text">Premium partners receive protected metro territories — no internal competition, maximum market capture in your region.</div></div>
+    <div class="why-card reveal" style="transition-delay:0.25s"><div class="why-icon">⚡</div><div class="why-title">60-Day Ramp-Up</div><div class="why-text">A structured onboarding program gets you operational fast. CDL demand is so high your first students can enroll within weeks of opening.</div></div>
+    <div class="why-card reveal" style="transition-delay:0.3s"><div class="why-icon">📈</div><div class="why-title">Recession-Resistant</div><div class="why-text">America always needs truck drivers. Supply chain demands ensure consistent student enrollment regardless of economic cycles or conditions.</div></div>
+  </div>
+</section>
+
+<!-- ROI CALCULATOR -->
+<section class="calculator" id="calculator">
+  <div class="section-label reveal">Interactive Tool</div>
+  <h2 class="section-title reveal">Calculate Your <span>Potential ROI</span></h2>
+  <div class="divider reveal"></div>
+  <p class="section-body reveal">Adjust the sliders below to model your CDL Alpha franchise earnings based on your market and investment level.</p>
+  <div class="calc-inner">
+    <div class="calc-controls reveal-left">
+      <div class="calc-group">
+        <label>Students per Month <span class="calc-value" id="v-students">15</span></label>
+        <input type="range" min="5" max="60" value="15" id="r-students" oninput="calcROI()">
+      </div>
+      <div class="calc-group">
+        <label>Tuition per Student <span class="calc-value" id="v-tuition">$4,500</span></label>
+        <input type="range" min="2000" max="8000" step="250" value="4500" id="r-tuition" oninput="calcROI()">
+      </div>
+      <div class="calc-group">
+        <label>Monthly Overhead <span class="calc-value" id="v-overhead">$8,000</span></label>
+        <input type="range" min="3000" max="25000" step="500" value="8000" id="r-overhead" oninput="calcROI()">
+      </div>
+      <div class="calc-group">
+        <label>Royalty Rate <span class="calc-value" id="v-royalty">6%</span></label>
+        <input type="range" min="5" max="8" step="1" value="6" id="r-royalty" oninput="calcROI()">
+      </div>
+      <div class="calc-group">
+        <label>Investment Tier <span class="calc-value" id="v-invest">$35K</span></label>
+        <input type="range" min="15000" max="80000" step="5000" value="35000" id="r-invest" oninput="calcROI()">
+      </div>
+    </div>
+    <div class="calc-results reveal-right">
+      <h3>📊 Your Projections</h3>
+      <div class="result-row"><span class="result-label">Monthly Gross Revenue</span><span class="result-val" id="r-gross">$67,500</span></div>
+      <div class="result-row"><span class="result-label">Royalty to HQ</span><span class="result-val" id="r-royalty-amt" style="color:#c0392b">-$4,050</span></div>
+      <div class="result-row"><span class="result-label">Monthly Overhead</span><span class="result-val" id="r-overhead-amt" style="color:#c0392b">-$8,000</span></div>
+      <div class="result-row"><span class="result-label">Est. Monthly Profit</span><span class="result-val highlight" id="r-profit">$55,450</span></div>
+      <div class="result-row"><span class="result-label">Annual Revenue</span><span class="result-val" id="r-annual">$810,000</span></div>
+      <div class="result-row"><span class="result-label">Estimated Breakeven</span><span class="result-val" id="r-breakeven">1 Month</span></div>
+      <p class="result-note">⚠️ Projections are estimates for planning purposes. Actual results depend on local market conditions, competition, and operations. Consult with our franchise team for detailed analysis.</p>
+    </div>
+  </div>
+</section>
+
+<!-- INVESTMENT TIERS -->
+<section class="tiers" id="investment">
+  <div class="section-label reveal">Investment Options</div>
+  <h2 class="section-title reveal">Choose Your <span>Tier</span></h2>
+  <div class="divider reveal"></div>
+  <p class="section-body reveal">Three tiers designed to meet entrepreneurs where they are — from first-time business owners to seasoned operators ready to scale fast.</p>
+  <div class="tiers-grid">
+    <div class="tier-card reveal">
+      <div class="tier-name">Starter</div>
+      <div class="tier-price">$15K–25K</div>
+      <div class="tier-royalty">+ 5% monthly royalty</div>
+      <ul class="tier-features">
+        <li>CDL Alpha brand license</li><li>Full training curriculum</li><li>Software & admin tools</li><li>60-day onboarding program</li><li>Marketing template kit</li>
+      </ul>
+      <a href="#apply" class="btn-outline tier-cta">Get Started →</a>
+    </div>
+    <div class="tier-card featured reveal" style="transition-delay:0.1s">
+      <div class="tier-badge">⭐ Most Popular</div>
+      <div class="tier-name">Full Launch</div>
+      <div class="tier-price">$35K–50K</div>
+      <div class="tier-royalty">+ 6% monthly royalty</div>
+      <ul class="tier-features">
+        <li>Everything in Starter</li><li>Lead generation system setup</li><li>Social media ad campaigns</li><li>1-on-1 launch coaching</li><li>CRM & enrollment system</li><li>Instructor training certification</li>
+      </ul>
+      <a href="#apply" class="btn-primary tier-cta">Apply Now →</a>
+    </div>
+    <div class="tier-card reveal" style="transition-delay:0.2s">
+      <div class="tier-name">Premium Partner</div>
+      <div class="tier-price">$60K–80K</div>
+      <div class="tier-royalty">+ 8% royalty — revenue share model</div>
+      <ul class="tier-features">
+        <li>Everything in Full Launch</li><li>Exclusive metro territory rights</li><li>Done-for-you launch setup</li><li>Priority lead referrals</li><li>Quarterly strategy sessions</li><li>Multi-unit expansion rights</li>
+      </ul>
+      <a href="#apply" class="btn-outline tier-cta">Inquire Now →</a>
+    </div>
+  </div>
+</section>
+
+<!-- PROCESS -->
+<section class="process" id="process">
+  <div class="reveal" style="max-width:500px">
+    <div class="section-label">How It Works</div>
+    <h2 class="section-title">Your Path to <span>Opening Day</span></h2>
+    <div class="divider"></div>
+    <p class="section-body">From application to grand opening in as little as 60–90 days. Here's what the journey looks like.</p>
+  </div>
+  <div class="timeline" style="max-width:600px;margin-top:3rem">
+    <div class="timeline-item reveal active">
+      <div class="timeline-dot">01</div>
+      <div class="timeline-content">
+        <div class="timeline-title">Submit Your Application</div>
+        <div class="timeline-text">Fill out the franchise application below. Our team reviews your background, target market, and investment readiness within 48 hours.</div>
+        <div class="timeline-time">Day 1–3</div>
+      </div>
+    </div>
+    <div class="timeline-item reveal" style="transition-delay:0.1s">
+      <div class="timeline-dot">02</div>
+      <div class="timeline-content">
+        <div class="timeline-title">Discovery Call & Approval</div>
+        <div class="timeline-text">Schedule a 1-on-1 strategy call with the CDL Alpha team. We'll discuss your territory, goals, and confirm your franchise fit.</div>
+        <div class="timeline-time">Day 4–10</div>
+      </div>
+    </div>
+    <div class="timeline-item reveal" style="transition-delay:0.2s">
+      <div class="timeline-dot">03</div>
+      <div class="timeline-content">
+        <div class="timeline-title">Sign Agreement & Fund</div>
+        <div class="timeline-text">Review and sign the Franchise Disclosure Document and agreement. Submit your initial investment to secure your territory.</div>
+        <div class="timeline-time">Day 11–20</div>
+      </div>
+    </div>
+    <div class="timeline-item reveal" style="transition-delay:0.3s">
+      <div class="timeline-dot">04</div>
+      <div class="timeline-content">
+        <div class="timeline-title">Training & Setup</div>
+        <div class="timeline-text">Complete the 60-day CDL Alpha onboarding: curriculum setup, licensing support, marketing launch, and instructor training.</div>
+        <div class="timeline-time">Day 21–80</div>
+      </div>
+    </div>
+    <div class="timeline-item reveal" style="transition-delay:0.4s">
+      <div class="timeline-dot">🚛</div>
+      <div class="timeline-content">
+        <div class="timeline-title">Grand Opening & First Students</div>
+        <div class="timeline-text">Launch your CDL Alpha school in your market. Your first enrollment campaign goes live — and the revenue starts rolling in.</div>
+        <div class="timeline-time">Day 81–90</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- MARKET -->
+<section class="market" id="market">
+  <div class="market-grid">
+    <div class="reveal-left">
+      <div class="section-label">The Market</div>
+      <h2 class="section-title">The <span>Trucking Shortage</span> Is Your Business</h2>
+      <div class="divider"></div>
+      <p class="section-body">The U.S. trucking industry faces a historic driver shortage with no end in sight. Every CDL you issue is a life changed — and a revenue stream built. This isn't a trend. It's the backbone of American commerce.</p>
+      <div style="margin-top:2rem">
+        <p class="section-body">Industries like e-commerce, food distribution, healthcare supply, and construction all depend on CDL drivers — and they're all struggling to find them. <strong style="color:var(--white)">Your franchise directly solves this crisis.</strong></p>
+      </div>
+    </div>
+    <div class="reveal-right">
+      <div class="opp-stats">
+        <div class="opp-stat"><div class="opp-num counter" data-target="700" data-prefix="" data-suffix="K+" data-divide="1">0</div><div class="opp-label">Driver deficit now</div></div>
+        <div class="opp-stat"><div class="opp-num counter" data-target="80" data-prefix="$" data-suffix="K" data-divide="1">0</div><div class="opp-label">Avg CDL salary</div></div>
+        <div class="opp-stat"><div class="opp-num counter" data-target="4" data-prefix="$" data-suffix="T" data-divide="1">0</div><div class="opp-label">US trucking industry</div></div>
+        <div class="opp-stat"><div class="opp-num counter" data-target="160" data-prefix="" data-suffix="K" data-divide="1">0</div><div class="opp-label">New drivers needed/yr</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section class="faq" id="faq">
+  <div class="section-label reveal" style="text-align:center">Common Questions</div>
+  <h2 class="section-title reveal" style="text-align:center">Frequently <span>Asked</span></h2>
+  <div class="divider reveal" style="margin:1.5rem auto"></div>
+  <div class="faq-list">
+    <div class="faq-item reveal">
+      <button class="faq-question" onclick="toggleFAQ(this)">Do I need experience in trucking or CDL training to open a franchise? <span class="faq-icon">+</span></button>
+      <div class="faq-answer"><p>No trucking experience required. CDL Alpha provides the complete curriculum, instructor certification standards, and operational playbook. You need business and management skills — we provide the industry expertise.</p></div>
+    </div>
+    <div class="faq-item reveal" style="transition-delay:0.05s">
+      <button class="faq-question" onclick="toggleFAQ(this)">What licenses do I need to open a CDL school in my state? <span class="faq-icon">+</span></button>
+      <div class="faq-answer"><p>Requirements vary by state but generally include a business license, a state-approved truck driving school license, and compliance with FMCSA standards. Our onboarding team walks you through every step for your specific state — most franchisees complete this in 30–45 days.</p></div>
+    </div>
+    <div class="faq-item reveal" style="transition-delay:0.1s">
+      <button class="faq-question" onclick="toggleFAQ(this)">How many trucks do I need to start? <span class="faq-icon">+</span></button>
+      <div class="faq-answer"><p>The Starter tier works with 1 truck and can scale from there. Full Launch and Premium tiers typically start with 2–3 vehicles for optimal scheduling. You can lease vehicles to reduce upfront costs — our team will guide you through the options.</p></div>
+    </div>
+    <div class="faq-item reveal" style="transition-delay:0.15s">
+      <button class="faq-question" onclick="toggleFAQ(this)">How quickly can I expect to enroll my first students? <span class="faq-icon">+</span></button>
+      <div class="faq-answer"><p>Most franchisees enroll their first students within 2–4 weeks of completing the onboarding process. CDL demand in most markets is extremely high — your marketing campaigns will often generate leads before you even open your doors.</p></div>
+    </div>
+    <div class="faq-item reveal" style="transition-delay:0.2s">
+      <button class="faq-question" onclick="toggleFAQ(this)">What territories are still available? <span class="faq-icon">+</span></button>
+      <div class="faq-answer"><p>We are currently expanding nationwide with priority markets in the Southeast, Midwest, Southwest, and Pacific Northwest. The best way to check availability in your target market is to submit an application — our team will confirm territory status within 48 hours.</p></div>
+    </div>
+    <div class="faq-item reveal" style="transition-delay:0.25s">
+      <button class="faq-question" onclick="toggleFAQ(this)">Is financing available for the franchise fee? <span class="faq-icon">+</span></button>
+      <div class="faq-answer"><p>CDL Alpha works with several SBA-friendly lenders and equipment financing partners who specialize in vocational training school businesses. We can connect you with these partners during your discovery call. Many franchisees finance a portion of their startup costs.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- APPLY FORM -->
+<section class="apply" id="apply">
+  <div class="apply-inner">
+    <div class="section-label reveal" style="text-align:center">Take the First Step</div>
+    <h2 class="section-title reveal" style="text-align:center">Apply for a <span>Franchise</span></h2>
+    <div class="divider reveal" style="margin:1.5rem auto"></div>
+    <p class="section-body reveal" style="text-align:center;margin:0 auto 2rem">A member of the CDL Alpha franchise team will contact you within <strong style="color:var(--gold)">48 hours</strong> of your submission.</p>
+
+    <!-- PROGRESS -->
+    <div class="form-progress reveal">
+      <div class="prog-step done" id="ps1">1</div>
+      <div class="prog-line" id="pl1"></div>
+      <div class="prog-step active" id="ps2">2</div>
+      <div class="prog-line" id="pl2"></div>
+      <div class="prog-step" id="ps3">3</div>
+    </div>
+
+    <div id="form-send-error" style="display:none;background:rgba(192,57,43,0.15);border:1px solid #c0392b;color:#e74c3c;padding:1rem 1.5rem;border-radius:4px;font-size:0.9rem;text-align:center;margin-bottom:1rem">
+      ⚠️ Something went wrong. Please try again or email us directly at <strong>Bryanugalde290@gmail.com</strong>
+    </div>
+    <div id="applicationForm">
+      <div class="form-grid">
+
+        <!-- STEP 1 -->
+        <div class="form-step active" id="step1">
+          <div class="form-group"><label>First Name <span class="required-mark">*</span></label><input type="text" id="f-first" placeholder="Bryan" oninput="clearErr(this)"><div class="field-error" id="e-first">Required</div></div>
+          <div class="form-group"><label>Last Name <span class="required-mark">*</span></label><input type="text" id="f-last" placeholder="Ugalde" oninput="clearErr(this)"><div class="field-error" id="e-last">Required</div></div>
+          <div class="form-group"><label>Email Address <span class="required-mark">*</span></label><input type="email" id="f-email" placeholder="you@email.com" oninput="clearErr(this)"><div class="field-error" id="e-email">Enter a valid email</div></div>
+          <div class="form-group"><label>Phone Number <span class="required-mark">*</span></label><input type="tel" id="f-phone" placeholder="(682) 000-0000" oninput="clearErr(this)"><div class="field-error" id="e-phone">Required</div></div>
+          <div class="form-nav">
+            <span></span>
+            <button class="btn-primary" type="button" onclick="goStep(2)">Continue → Step 2</button>
+          </div>
+        </div>
+
+        <!-- STEP 2 -->
+        <div class="form-step" id="step2">
+          <div class="form-group"><label>Target State <span class="required-mark">*</span></label>
+            <select id="f-state" oninput="clearErr(this)">
+              <option value="">Select a state...</option>
+              <option>Alabama</option><option>Arizona</option><option>California</option><option>Colorado</option><option>Florida</option><option>Georgia</option><option>Illinois</option><option>Indiana</option><option>Michigan</option><option>Minnesota</option><option>Nevada</option><option>New York</option><option>North Carolina</option><option>Ohio</option><option>Pennsylvania</option><option>Tennessee</option><option>Texas</option><option>Virginia</option><option>Washington</option><option>Other</option>
+            </select><div class="field-error" id="e-state">Select a state</div>
+          </div>
+          <div class="form-group"><label>Investment Tier <span class="required-mark">*</span></label>
+            <select id="f-tier" oninput="clearErr(this)">
+              <option value="">Select a tier...</option>
+              <option>Starter ($15K–$25K)</option>
+              <option>Full Launch ($35K–$50K)</option>
+              <option>Premium Partner ($60K–$80K)</option>
+            </select><div class="field-error" id="e-tier">Select a tier</div>
+          </div>
+          <div class="form-group"><label>Current Occupation</label><input type="text" id="f-job" placeholder="e.g. Business Owner, Manager, Driver..."></div>
+          <div class="form-group"><label>When Are You Ready to Start?</label>
+            <select id="f-timeline">
+              <option value="">Select timeline...</option>
+              <option>Immediately (within 30 days)</option>
+              <option>1–3 months</option>
+              <option>3–6 months</option>
+              <option>6–12 months</option>
+              <option>Just researching for now</option>
+            </select>
+          </div>
+          <div class="form-nav">
+            <button class="btn-back" type="button" onclick="goStep(1)">← Back</button>
+            <button class="btn-primary" type="button" onclick="goStep(3)">Continue → Step 3</button>
+          </div>
+        </div>
+
+        <!-- STEP 3 -->
+        <div class="form-step" id="step3">
+          <div class="form-group full"><label>Tell Us About Your Background <span class="required-mark">*</span></label><textarea id="f-bg" placeholder="Share your business experience, why you're interested in CDL Alpha, any relevant background, and your goals..." oninput="clearErr(this)"></textarea><div class="field-error" id="e-bg">Please tell us a bit about yourself</div></div>
+          <div class="form-group full"><label>How Did You Hear About CDL Alpha?</label>
+            <select id="f-source">
+              <option value="">Select source...</option>
+              <option>Social Media (Instagram / Facebook)</option>
+              <option>Google Search</option>
+              <option>Referral from a friend</option>
+              <option>LinkedIn</option>
+              <option>Industry event</option>
+              <option>Other</option>
+            </select>
+          </div>
+          <div class="form-nav">
+            <button class="btn-back" type="button" onclick="goStep(2)">← Back</button>
+            <button class="btn-primary" type="button" onclick="submitForm()" style="min-width:200px">🚀 Submit Application</button>
+          </div>
+          <p class="form-note full" style="grid-column:1/-1">By submitting, you agree to be contacted by CDL Alpha Driving School. We never share your information with third parties.</p>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- SUCCESS -->
+    <div class="success-screen" id="successScreen">
+      <div class="success-icon">🎉</div>
+      <h3>Application Received!</h3>
+      <p>Thank you for your interest in the CDL Alpha franchise. Our team will review your application and contact you within <strong style="color:var(--gold)">48 business hours</strong> to schedule your discovery call.<br><br>In the meantime, visit <strong style="color:var(--gold)">cdlalphadrivingschool.org</strong> to learn more about what we're building.</p>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-logo">CDL Alpha Driving School</div>
+    <div class="footer-links">
+      <a href="#why">Why Us</a>
+      <a href="#calculator">ROI Calculator</a>
+      <a href="#investment">Investment</a>
+      <a href="#process">Process</a>
+      <a href="#faq">FAQ</a>
+      <a href="#apply">Apply</a>
+    </div>
+    <div style="font-size:0.82rem;color:#555">cdlalphadrivingschool.org &nbsp;|&nbsp; Grand Opening May 23, 2026</div>
+  </div>
+  <div class="footer-copy">© 2026 CDL Alpha Driving School. All rights reserved. &nbsp;|&nbsp; Fort Worth, TX</div>
+</footer>
+
+<script>
+// SCROLL PROGRESS
+window.addEventListener('scroll',()=>{
+  const s=document.documentElement;
+  const p=(s.scrollTop||document.body.scrollTop)/(s.scrollHeight-s.clientHeight)*100;
+  document.getElementById('progress-bar').style.width=p+'%';
+  // Nav scroll
+  document.getElementById('navbar').classList.toggle('scrolled',window.scrollY>60);
+  // Active nav link
+  const secs=['hero','why','calculator','investment','process','market','faq','apply'];
+  let cur='';
+  secs.forEach(id=>{const el=document.getElementById(id);if(el&&window.scrollY>=el.offsetTop-120)cur=id});
+  document.querySelectorAll('.nav-link:not(.nav-cta)').forEach(a=>{
+    a.classList.toggle('active',a.getAttribute('href')==='#'+cur);
+  });
+});
+
+// MOBILE MENU
+function toggleMobile(){
+  document.getElementById('hamburger').classList.toggle('open');
+  document.getElementById('mobileMenu').classList.toggle('open');
+  document.body.style.overflow=document.getElementById('mobileMenu').classList.contains('open')?'hidden':'';
+}
+function closeMobile(){
+  document.getElementById('hamburger').classList.remove('open');
+  document.getElementById('mobileMenu').classList.remove('open');
+  document.body.style.overflow='';
+}
+
+// REVEAL ON SCROLL
+const observer=new IntersectionObserver(entries=>{
+  entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('visible')});
+},{threshold:0.1});
+document.querySelectorAll('.reveal,.reveal-left,.reveal-right').forEach(el=>observer.observe(el));
+
+// COUNTER ANIMATION
+const counterObs=new IntersectionObserver(entries=>{
+  entries.forEach(e=>{
+    if(e.isIntersecting&&!e.target.dataset.done){
+      e.target.dataset.done='1';
+      animateCounter(e.target);
+    }
+  });
+},{threshold:0.5});
+document.querySelectorAll('.counter').forEach(el=>counterObs.observe(el));
+
+function animateCounter(el){
+  const target=+el.dataset.target,pre=el.dataset.prefix||'',suf=el.dataset.suffix||'';
+  const dur=1800,step=16,steps=dur/step;
+  let cur=0;
+  const t=setInterval(()=>{
+    cur+=target/steps;
+    if(cur>=target){cur=target;clearInterval(t);}
+    el.textContent=pre+Math.floor(cur).toLocaleString()+suf;
+  },step);
+}
+
+// ROI CALCULATOR
+function calcROI(){
+  const students=+document.getElementById('r-students').value;
+  const tuition=+document.getElementById('r-tuition').value;
+  const overhead=+document.getElementById('r-overhead').value;
+  const royalty=+document.getElementById('r-royalty').value/100;
+  const invest=+document.getElementById('r-invest').value;
+  document.getElementById('v-students').textContent=students;
+  document.getElementById('v-tuition').textContent='$'+tuition.toLocaleString();
+  document.getElementById('v-overhead').textContent='$'+overhead.toLocaleString();
+  document.getElementById('v-royalty').textContent=(royalty*100)+'%';
+  document.getElementById('v-invest').textContent='$'+(invest/1000).toFixed(0)+'K';
+  const gross=students*tuition;
+  const royaltyAmt=gross*royalty;
+  const profit=gross-royaltyAmt-overhead;
+  const breakeven=profit>0?Math.max(1,Math.ceil(invest/profit)):Infinity;
+  document.getElementById('r-gross').textContent='$'+gross.toLocaleString();
+  document.getElementById('r-royalty-amt').textContent='-$'+Math.round(royaltyAmt).toLocaleString();
+  document.getElementById('r-overhead-amt').textContent='-$'+overhead.toLocaleString();
+  document.getElementById('r-profit').textContent=(profit>0?'$':'-$')+Math.abs(Math.round(profit)).toLocaleString();
+  document.getElementById('r-profit').style.color=profit>0?'var(--gold)':'#e74c3c';
+  document.getElementById('r-annual').textContent='$'+Math.round(gross*12).toLocaleString();
+  document.getElementById('r-breakeven').textContent=profit<=0?'—':breakeven===1?'~1 Month':breakeven+' Months';
+}
+calcROI();
+
+// FAQ
+function toggleFAQ(btn){
+  const item=btn.closest('.faq-item');
+  const isOpen=item.classList.contains('open');
+  document.querySelectorAll('.faq-item.open').forEach(i=>i.classList.remove('open'));
+  if(!isOpen)item.classList.add('open');
+}
+
+// MULTI-STEP FORM
+let currentStep=1;
+function goStep(n){
+  if(n>currentStep&&!validateStep(currentStep))return;
+  document.getElementById('step'+currentStep).classList.remove('active');
+  currentStep=n;
+  document.getElementById('step'+currentStep).classList.add('active');
+  updateProgress(n);
+  document.getElementById('apply').scrollIntoView({behavior:'smooth',block:'start'});
+}
+function updateProgress(step){
+  [1,2,3].forEach(i=>{
+    const el=document.getElementById('ps'+i);
+    el.classList.remove('active','done');
+    if(i<step)el.classList.add('done');
+    else if(i===step)el.classList.add('active');
+  });
+  [1,2].forEach(i=>{
+    document.getElementById('pl'+i)?.classList.toggle('done',i<step);
+  });
+}
+function validateStep(s){
+  let ok=true;
+  const checks={
+    1:[['f-first','e-first',v=>v.trim().length>1],['f-last','e-last',v=>v.trim().length>1],['f-email','e-email',v=>/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v)],['f-phone','e-phone',v=>v.trim().length>7]],
+    2:[['f-state','e-state',v=>v!==''],['f-tier','e-tier',v=>v!=='']],
+    3:[['f-bg','e-bg',v=>v.trim().length>20]]
+  };
+  (checks[s]||[]).forEach(([fid,eid,fn])=>{
+    const el=document.getElementById(fid);
+    const err=document.getElementById(eid);
+    if(!fn(el.value)){el.classList.add('error');err.classList.add('show');ok=false;}
+  });
+  return ok;
+}
+function clearErr(el){el.classList.remove('error');const eid='e-'+el.id.replace('f-','');document.getElementById(eid)?.classList.remove('show')}
+async function submitForm(){
+  if(!validateStep(3))return;
+  const submitBtn=document.querySelector('#step3 .btn-primary[onclick="submitForm()"]');
+  submitBtn.textContent='⏳ Sending...';
+  submitBtn.disabled=true;
+
+  const data={
+    firstName: document.getElementById('f-first').value,
+    lastName:  document.getElementById('f-last').value,
+    email:     document.getElementById('f-email').value,
+    phone:     document.getElementById('f-phone').value,
+    state:     document.getElementById('f-state').value,
+    tier:      document.getElementById('f-tier').value,
+    occupation:document.getElementById('f-job').value,
+    timeline:  document.getElementById('f-timeline').value,
+    background:document.getElementById('f-bg').value,
+    source:    document.getElementById('f-source').value,
+  };
+
+  try{
+    const res=await fetch('https://formspree.io/f/myklykbn',{
+      method:'POST',
+      headers:{'Content-Type':'application/json','Accept':'application/json'},
+      body:JSON.stringify(data)
+    });
+    if(res.ok){
+      document.getElementById('applicationForm').style.display='none';
+      document.querySelector('.form-progress').style.display='none';
+      document.getElementById('successScreen').classList.add('show');
+    } else {
+      throw new Error('Server error');
+    }
+  } catch(err){
+    submitBtn.textContent='🚀 Submit Application';
+    submitBtn.disabled=false;
+    const errBox=document.getElementById('form-send-error');
+    errBox.style.display='block';
+    setTimeout(()=>errBox.style.display='none',5000);
+  }
+}
+</script>
+</body>
+</html>
