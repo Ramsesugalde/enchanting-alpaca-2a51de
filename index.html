@@ -771,10 +771,13 @@ async function submitForm(){
   submitBtn.textContent='⏳ Sending...';
   submitBtn.disabled=true;
 
+  const applicantEmail=document.getElementById('f-email').value;
   const data={
+    _replyto:  applicantEmail,
+    _subject:  'New CDL Alpha Franchise Application',
     firstName: document.getElementById('f-first').value,
     lastName:  document.getElementById('f-last').value,
-    email:     document.getElementById('f-email').value,
+    email:     applicantEmail,
     phone:     document.getElementById('f-phone').value,
     state:     document.getElementById('f-state').value,
     tier:      document.getElementById('f-tier').value,
