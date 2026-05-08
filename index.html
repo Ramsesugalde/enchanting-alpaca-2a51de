@@ -754,7 +754,7 @@ function updateProgress(step){
 function validateStep(s){
   let ok=true;
   const checks={
-    1:[['f-first','e-first',v=>v.trim().length>1],['f-last','e-last',v=>v.trim().length>1],['f-email','e-email',v=>/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v)],['f-phone','e-phone',v=>v.trim().length>7]],
+    1:[['f-first','e-first',v=>v.trim().length>1],['f-last','e-last',v=>v.trim().length>1],['f-email','e-email',v=>/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v)],['f-phone','e-phone',v=>v.replace(/\D/g,'').length>=7]],
     2:[['f-state','e-state',v=>v!==''],['f-tier','e-tier',v=>v!=='']],
     3:[['f-bg','e-bg',v=>v.trim().length>20]]
   };
