@@ -687,13 +687,14 @@ document.querySelectorAll('.counter').forEach(el=>counterObs.observe(el));
 
 function animateCounter(el){
   const target=+el.dataset.target,pre=el.dataset.prefix||'',suf=el.dataset.suffix||'';
-  const dur=1800,step=16,steps=dur/step;
-  let cur=0;
-  const t=setInterval(()=>{
-    cur+=target/steps;
-    if(cur>=target){cur=target;clearInterval(t);}
-    el.textContent=pre+Math.floor(cur).toLocaleString()+suf;
-  },step);
+  const dur=1800,start=performance.now();
+  function step(ts){
+    const prog=Math.min((ts-start)/dur,1);
+    const ease=1-Math.pow(1-prog,3);
+    el.textContent=pre+Math.round(ease*target)+suf;
+    if(prog<1)requestAnimationFrame(step);
+  }
+  requestAnimationFrame(step);
 }
 
 // ROI CALCULATOR
