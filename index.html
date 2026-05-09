@@ -267,6 +267,32 @@ footer{background:var(--black);border-top:1px solid rgba(240,165,0,0.1);padding:
 
 @keyframes fadeUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
 
+/* COUNTDOWN */
+.countdown-section{background:var(--black);border-top:1px solid rgba(240,165,0,0.2);border-bottom:1px solid rgba(240,165,0,0.2);padding:5rem 3rem;text-align:center}
+.cd-date-label{font-family:'Bebas Neue',sans-serif;font-size:1.6rem;letter-spacing:3px;color:var(--white);margin:0.5rem 0 2.5rem}
+.cd-wrap{display:flex;gap:0.75rem;justify-content:center;align-items:flex-start;flex-wrap:wrap;margin-bottom:2.5rem}
+.cd-block{text-align:center}
+.cd-num{font-family:'Bebas Neue',sans-serif;font-size:clamp(3.5rem,9vw,5.5rem);color:var(--gold);line-height:1;background:var(--dark3);border:1px solid rgba(240,165,0,0.25);border-radius:4px;padding:0.15rem 0.9rem;min-width:85px;display:inline-block}
+.cd-unit{font-size:0.62rem;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:var(--gray);margin-top:0.5rem}
+.cd-colon{font-family:'Bebas Neue',sans-serif;font-size:4rem;color:rgba(240,165,0,0.3);padding:0 0.1rem;line-height:1.1}
+.countdown-sub{color:#888;font-size:0.95rem;line-height:1.75;max-width:520px;margin:0 auto 2.5rem}
+
+/* SHARE */
+.share-section{background:var(--dark2)}
+.share-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(290px,1fr));gap:1.5rem;margin-top:0}
+.share-card{background:var(--dark3);border:1px solid rgba(255,255,255,0.07);border-radius:4px;padding:1.75rem;display:flex;flex-direction:column;gap:1rem;transition:border-color 0.3s,transform 0.25s}
+.share-card:hover{border-color:rgba(240,165,0,0.3);transform:translateY(-3px)}
+.share-platform{display:flex;align-items:center;gap:0.65rem;font-family:'Barlow Condensed',sans-serif;font-size:0.95rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--white)}
+.spi{width:28px;height:28px;background:rgba(240,165,0,0.1);border:1px solid rgba(240,165,0,0.2);border-radius:2px;display:flex;align-items:center;justify-content:center;font-size:0.8rem;font-weight:900;color:var(--gold);flex-shrink:0;font-style:normal;line-height:1}
+.share-preview{font-size:0.8rem;color:#888;line-height:1.65;background:rgba(0,0,0,0.25);border-radius:2px;padding:0.85rem;border-left:2px solid rgba(240,165,0,0.25);flex:1;white-space:pre-line;font-family:'Barlow',sans-serif}
+.share-btns{display:flex;gap:0.6rem}
+.btn-copy{background:transparent;border:1px solid rgba(240,165,0,0.3);color:var(--gold);padding:0.55rem 1rem;font-family:'Barlow Condensed',sans-serif;font-size:0.8rem;font-weight:700;letter-spacing:1px;text-transform:uppercase;border-radius:2px;cursor:pointer;transition:all 0.2s;flex:1}
+.btn-copy:hover{background:rgba(240,165,0,0.1);border-color:var(--gold)}
+.btn-copy.copied{background:var(--success);border-color:var(--success);color:#fff;pointer-events:none}
+.btn-go{background:var(--gold);color:var(--black);padding:0.55rem 1rem;font-family:'Barlow Condensed',sans-serif;font-size:0.8rem;font-weight:700;letter-spacing:1px;text-transform:uppercase;border-radius:2px;cursor:pointer;transition:background 0.2s;white-space:nowrap;border:none;display:inline-flex;align-items:center;gap:0.3rem}
+.btn-go:hover{background:var(--gold-light)}
+@media(max-width:768px){.share-btns{flex-direction:column}}
+
 @media(max-width:900px){
   .calc-inner,.market-grid{grid-template-columns:1fr;gap:2.5rem}
   .calc-results{position:static}
@@ -362,6 +388,23 @@ footer{background:var(--black);border-top:1px solid rgba(240,165,0,0.1);padding:
     <span>Join the Network</span><span class="ticker-sep">◆</span>
   </div>
 </div>
+
+<!-- COUNTDOWN -->
+<section class="countdown-section" id="countdown-section">
+  <div class="section-label">Grand Opening Countdown</div>
+  <div class="cd-date-label">May 23, 2026 — Pantego, TX</div>
+  <div class="cd-wrap">
+    <div class="cd-block"><div class="cd-num" id="cd-days">--</div><div class="cd-unit">Days</div></div>
+    <div class="cd-colon">:</div>
+    <div class="cd-block"><div class="cd-num" id="cd-hours">--</div><div class="cd-unit">Hours</div></div>
+    <div class="cd-colon">:</div>
+    <div class="cd-block"><div class="cd-num" id="cd-mins">--</div><div class="cd-unit">Minutes</div></div>
+    <div class="cd-colon">:</div>
+    <div class="cd-block"><div class="cd-num" id="cd-secs">--</div><div class="cd-unit">Seconds</div></div>
+  </div>
+  <p class="countdown-sub">Territories are filling fast. Submit your application now to lock in your exclusive market before Grand Opening.</p>
+  <a href="#apply" class="btn-primary">Secure Your Territory →</a>
+</section>
 
 <!-- WHY -->
 <section class="why" id="why">
@@ -564,6 +607,110 @@ footer{background:var(--black);border-top:1px solid rgba(240,165,0,0.1);padding:
       <button class="faq-question" onclick="toggleFAQ(this)">Is financing available for the franchise fee? <span class="faq-icon">+</span></button>
       <div class="faq-answer"><p>CDL Alpha works with several SBA-friendly lenders and equipment financing partners who specialize in vocational training school businesses. We can connect you with these partners during your discovery call. Many franchisees finance a portion of their startup costs.</p></div>
     </div>
+  </div>
+</section>
+
+<!-- SHARE -->
+<section class="share-section" id="share">
+  <div class="section-label reveal" style="text-align:center">Go Viral</div>
+  <h2 class="section-title reveal" style="text-align:center">Share the <span>Opportunity</span></h2>
+  <div class="divider reveal" style="margin:1.5rem auto"></div>
+  <p class="section-body reveal" style="text-align:center;margin:0 auto 3rem">Know someone who should own a CDL school? Pre-written posts for every platform — one click to copy, one click to share.</p>
+  <div class="share-grid">
+
+    <div class="share-card reveal">
+      <div class="share-platform"><i class="spi">𝕏</i>Twitter / X</div>
+      <div class="share-preview">🚛 Own a CDL school. Change lives.
+
+America is 700K+ drivers short — train the next generation.
+
+✅ $15K to start  ✅ 60-day launch
+✅ No experience needed
+
+Grand Opening May 23, 2026
+👉 cdlalphadrivingschool.org/franchise</div>
+      <div class="share-btns">
+        <button class="btn-copy" data-copy="tw" onclick="copyPost('tw')">Copy Post</button>
+        <button class="btn-go" onclick="shareOn('tw')">Post on X →</button>
+      </div>
+    </div>
+
+    <div class="share-card reveal" style="transition-delay:0.05s">
+      <div class="share-platform"><i class="spi">in</i>LinkedIn</div>
+      <div class="share-preview">America has a 700,000+ driver shortage.
+
+Alpha CDL Academy franchise is now open:
+✅ Proven curriculum & marketing system
+✅ 60-day launch | 3 tiers from $15K
+✅ No trucking experience required
+
+Grand Opening: May 23, 2026
+👉 cdlalphadrivingschool.org/franchise
+
+#CDL #Franchise #SmallBusiness #Entrepreneur</div>
+      <div class="share-btns">
+        <button class="btn-copy" data-copy="li" onclick="copyPost('li')">Copy Post</button>
+        <button class="btn-go" onclick="shareOn('li')">Post on LinkedIn →</button>
+      </div>
+    </div>
+
+    <div class="share-card reveal" style="transition-delay:0.1s">
+      <div class="share-platform"><i class="spi">💬</i>WhatsApp</div>
+      <div class="share-preview">Hey! 👋 You need to see this — own a CDL school from $15K. America has a 700K+ driver shortage and this franchise lets you train them. Grand Opening May 23, 2026 👉 cdlalphadrivingschool.org/franchise</div>
+      <div class="share-btns">
+        <button class="btn-copy" data-copy="wa" onclick="copyPost('wa')">Copy Message</button>
+        <button class="btn-go" onclick="shareOn('wa')">Send on WhatsApp →</button>
+      </div>
+    </div>
+
+    <div class="share-card reveal" style="transition-delay:0.15s">
+      <div class="share-platform"><i class="spi">f</i>Facebook</div>
+      <div class="share-preview">🚛 FRANCHISE OPPORTUNITY — OPEN NOW!
+
+Alpha CDL Academy is expanding nationwide.
+📦 700K+ driver shortage in the U.S.
+💰 $80K+ avg CDL salary
+✅ Tiers from $15K | 60-day launch
+✅ No experience required
+
+Grand Opening: May 23, 2026 🎉
+cdlalphadrivingschool.org/franchise</div>
+      <div class="share-btns">
+        <button class="btn-copy" data-copy="fb" onclick="copyPost('fb')">Copy Post</button>
+        <button class="btn-go" onclick="shareOn('fb')">Share on Facebook →</button>
+      </div>
+    </div>
+
+    <div class="share-card reveal" style="transition-delay:0.2s">
+      <div class="share-platform"><i class="spi">📸</i>Instagram / TikTok</div>
+      <div class="share-preview">🚛 OWN A CDL SCHOOL. CHANGE LIVES.
+
+America is 700K+ truck drivers short.
+✅ Starts at $15K | 60-day launch
+✅ Done-for-you marketing
+✅ No experience needed
+
+Grand Opening: May 23, 2026 🎉
+🔗 Link in bio
+
+#CDLSchool #FranchiseOpportunity #Trucking #CDL #SmallBusiness #Entrepreneur #BusinessOpportunity #AlphaCDL #CDLAlpha #DFW #Texas #FranchiseBusiness #OwnABusiness #TruckDriver #Hustle</div>
+      <div class="share-btns">
+        <button class="btn-copy" data-copy="ig" onclick="copyPost('ig')" style="flex:1">Copy Caption + Hashtags</button>
+      </div>
+    </div>
+
+    <div class="share-card reveal" style="transition-delay:0.25s">
+      <div class="share-platform"><i class="spi">✉</i>Email</div>
+      <div class="share-preview">Subject: A business opportunity worth a look
+
+America's 700K+ driver shortage is your business opportunity. Alpha CDL Academy franchise — tiers from $15K, full training + marketing included, Grand Opening May 23, 2026.
+
+No trucking experience needed.</div>
+      <div class="share-btns">
+        <button class="btn-go" onclick="shareOn('em')" style="flex:1;justify-content:center">Email a Friend →</button>
+      </div>
+    </div>
+
   </div>
 </section>
 
@@ -930,7 +1077,7 @@ window.addEventListener('scroll',()=>{
   // Nav scroll
   document.getElementById('navbar').classList.toggle('scrolled',window.scrollY>60);
   // Active nav link
-  const secs=['hero','why','calculator','investment','process','market','faq','apply'];
+  const secs=['hero','countdown-section','why','calculator','investment','process','market','faq','share','apply'];
   let cur='';
   secs.forEach(id=>{const el=document.getElementById(id);if(el&&window.scrollY>=el.offsetTop-120)cur=id});
   document.querySelectorAll('.nav-link:not(.nav-cta)').forEach(a=>{
@@ -1091,6 +1238,78 @@ async function submitForm(){
     errBox.style.display='block';
     setTimeout(()=>errBox.style.display='none',5000);
   }
+}
+
+// COUNTDOWN
+(function countdown(){
+  var target=new Date('2026-05-23T09:00:00-05:00');
+  function tick(){
+    var diff=target-new Date();
+    if(diff<=0){
+      var s=document.getElementById('countdown-section');
+      if(s)s.innerHTML='<div style="text-align:center;color:var(--gold);font-family:\'Bebas Neue\',sans-serif;font-size:3rem;letter-spacing:3px;padding:2rem">🚛 WE ARE OPEN!</div>';
+      return;
+    }
+    var d=Math.floor(diff/86400000);
+    var h=Math.floor((diff%86400000)/3600000);
+    var m=Math.floor((diff%3600000)/60000);
+    var s=Math.floor((diff%60000)/1000);
+    function pad(n){return String(n).padStart(2,'0')}
+    var days=document.getElementById('cd-days');
+    var hours=document.getElementById('cd-hours');
+    var mins=document.getElementById('cd-mins');
+    var secs=document.getElementById('cd-secs');
+    if(days)days.textContent=d;
+    if(hours)hours.textContent=pad(h);
+    if(mins)mins.textContent=pad(m);
+    if(secs)secs.textContent=pad(s);
+  }
+  tick();
+  setInterval(tick,1000);
+})();
+
+// SHARE POSTS
+var SHARE_POSTS={
+  tw:'🚛 Own a CDL school. Change lives.\n\nAmerica is 700K+ drivers short — train the next generation.\n\n✅ $15K to start  ✅ 60-day launch\n✅ No experience needed\n\nGrand Opening May 23, 2026\n👉 https://cdlalphadrivingschool.org/franchise',
+  li:'The U.S. has a 700,000+ commercial driver shortage — and it grows every year.\n\nAlpha CDL Academy franchise is now open:\n✅ Proven curriculum & marketing system\n✅ 60-day launch | 3 investment tiers from $15K\n✅ Exclusive territories | No experience required\n\nGrand Opening: May 23, 2026\n👉 https://cdlalphadrivingschool.org/franchise\n\n#CDL #Franchise #Trucking #SmallBusiness #Entrepreneur #BusinessOpportunity #CDLTraining',
+  wa:'Hey! 👋 You need to see this — own a CDL school from $15K. America has a 700K+ driver shortage and this franchise lets you train them. Grand Opening May 23, 2026 👉 https://cdlalphadrivingschool.org/franchise',
+  fb:'🚛 FRANCHISE OPPORTUNITY — OPEN NOW!\n\nAlpha CDL Academy is expanding nationwide.\n📦 700K+ driver shortage in the U.S.\n💰 $80K+ avg CDL driver salary\n✅ Tiers from $15K | 60-day launch system\n✅ Full curriculum + marketing provided\n✅ No trucking experience required\n\nGrand Opening: May 23, 2026 🎉\nhttps://cdlalphadrivingschool.org/franchise',
+  ig:'🚛 OWN A CDL SCHOOL. CHANGE LIVES.\n\nAmerica is 700K+ truck drivers short — CDL Alpha lets you open your own school.\n✅ Starts at $15K | 60-day launch\n✅ Done-for-you marketing\n✅ No experience needed\n\nGrand Opening: May 23, 2026 🎉\n🔗 Link in bio\n\n#CDLSchool #FranchiseOpportunity #Trucking #CDL #SmallBusiness #Entrepreneur #BusinessOpportunity #AlphaCDL #CDLAlpha #DFW #Texas #FranchiseBusiness #OwnABusiness #TruckDriver #Hustle'
+};
+
+function copyPost(key){
+  var text=SHARE_POSTS[key];
+  var btn=document.querySelector('[data-copy="'+key+'"]');
+  var orig=btn?btn.textContent:'';
+  function onCopied(){
+    if(btn){btn.textContent='✓ Copied!';btn.classList.add('copied');}
+    setTimeout(function(){if(btn){btn.textContent=orig;btn.classList.remove('copied');}},2500);
+  }
+  if(navigator.clipboard&&navigator.clipboard.writeText){
+    navigator.clipboard.writeText(text).then(onCopied).catch(function(){fallbackCopy(text,onCopied);});
+  } else {
+    fallbackCopy(text,onCopied);
+  }
+}
+function fallbackCopy(text,cb){
+  var ta=document.createElement('textarea');
+  ta.value=text;ta.style.position='fixed';ta.style.opacity='0';
+  document.body.appendChild(ta);ta.select();
+  try{document.execCommand('copy');}catch(e){}
+  document.body.removeChild(ta);
+  if(cb)cb();
+}
+function shareOn(platform){
+  var url='https://cdlalphadrivingschool.org/franchise';
+  var emailBody='Hi,\n\nI wanted to share this with you — Alpha CDL Academy is offering franchise opportunities to open your own CDL training school nationwide.\n\nKey facts:\n• 700,000+ driver shortage in the U.S.\n• $80K+ average CDL driver salary\n• Investment tiers from $15,000\n• No trucking experience required\n• Grand Opening: May 23, 2026\n\nLearn more: https://cdlalphadrivingschool.org/franchise';
+  var links={
+    tw:'https://twitter.com/intent/tweet?text='+encodeURIComponent(SHARE_POSTS.tw),
+    li:'https://www.linkedin.com/sharing/share-offsite/?url='+encodeURIComponent(url),
+    wa:'https://wa.me/?text='+encodeURIComponent(SHARE_POSTS.wa),
+    fb:'https://www.facebook.com/sharer/sharer.php?u='+encodeURIComponent(url),
+    em:'mailto:?subject='+encodeURIComponent('A business opportunity worth a look')+'&body='+encodeURIComponent(emailBody)
+  };
+  if(links[platform])window.open(links[platform],'_blank','noopener,noreferrer');
 }
 </script>
 </body>
